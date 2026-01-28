@@ -1,0 +1,23 @@
+# Core
+pypdf>=3.0.0
+
+# Text Processing
+langchain>=0.1.0
+langchain-text-splitters>=0.0.1
+
+# Embeddings
+sentence-transformers>=2.2.0
+
+# Vector Database
+chromadb>=0.4.0
+
+# MCP Server
+fastapi>=0.100.0
+uvicorn>=0.22.0
+pydantic>=2.0.0
+
+# GUI
+streamlit>=1.25.0
+
+# Utilities
+python-dotenv>=1.0.0
