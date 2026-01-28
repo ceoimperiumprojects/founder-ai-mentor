@@ -34,8 +34,15 @@ st.sidebar.metric("Ukupno chunk-ova", stats["total_documents"])
 
 st.sidebar.divider()
 st.sidebar.header("⚙️ Postavke")
-chunk_size = st.sidebar.slider("Chunk size", 500, 2000, 1000, 100)
-chunk_overlap = st.sidebar.slider("Chunk overlap", 50, 500, 200, 50)
+use_semantic = st.sidebar.checkbox(
+    "Koristi semantic chunking",
+    value=True,
+    help="Semantic chunking koristi AI za prirodnije dijeljenje teksta. Rezultira u manje, ali koherentnije chunk-ove."
+)
+chunk_size = st.sidebar.slider("Chunk size", 500, 2000, 1000, 100, disabled=use_semantic)
+chunk_overlap = st.sidebar.slider("Chunk overlap", 50, 500, 200, 50, disabled=use_semantic)
+if use_semantic:
+    st.sidebar.caption("ℹ️ Chunk size i overlap se ignorisu kod semantic chunkinga")
 
 # Main content
 tab1, tab2 = st.tabs(["📤 Dodaj znanje", "🔍 Pretraga"])
@@ -67,14 +74,16 @@ with tab1:
                 text,
                 source=uploaded_file.name,
                 chunk_size=chunk_size,
-                chunk_overlap=chunk_overlap
+                chunk_overlap=chunk_overlap,
+                use_semantic=use_semantic
             )
 
             # Clean up temp file
             temp_path.unlink()
 
         # Preview
-        st.success(f"Pronadeno **{len(chunks)}** chunk-ova")
+        chunking_method = "semantic" if use_semantic else "character-based"
+        st.success(f"Pronadeno **{len(chunks)}** chunk-ova ({chunking_method})")
 
         with st.expander("Pregledaj chunk-ove", expanded=False):
             for i, chunk in enumerate(chunks[:5]):

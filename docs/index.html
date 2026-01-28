@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founder AI Mentor - Your AI Startup Advisor</title>
+  <meta name="description" content="An AI mentor powered by 10 essential startup books. Get instant, context-aware advice via Claude Desktop and MCP.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <span>&#9889;</span> Founder AI Mentor
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#books">Books</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#signup" class="nav-cta">Get Early Access</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-badge">Open Source &middot; MCP Powered</div>
+      <h1>Your AI <span class="highlight">Startup Mentor</span></h1>
+      <p class="hero-subtitle">
+        Ask Claude anything about building a startup &mdash; backed by wisdom from 10 essential books, delivered through semantic search and MCP.
+      </p>
+      <div class="hero-buttons">
+        <a href="#signup" class="btn btn-primary">Get Early Access</a>
+        <a href="https://github.com/ceoimperiumprojects/founder-ai-mentor" class="btn btn-secondary" target="_blank" rel="noopener">
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== What Is It ===== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-label">What is it</div>
+      <h2 class="section-title">AI Mentor Powered by Real Startup Knowledge</h2>
+      <p class="section-subtitle">
+        Not another chatbot. This is a RAG-powered system that lets Claude search through 10 curated startup books to give you grounded, actionable advice.
+      </p>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon">&#128218;</div>
+          <h3>10 Curated Books</h3>
+          <p>From Hormozi's $100M Offers to Thiel's Zero to One &mdash; the most impactful startup books, semantically indexed.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">&#129504;</div>
+          <h3>Semantic Search</h3>
+          <p>Uses sentence-transformers and ChromaDB for deep semantic chunking &mdash; finds the right answer, not just keyword matches.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon">&#9889;</div>
+          <h3>MCP Integration</h3>
+          <p>Runs as a Model Context Protocol server. Claude Desktop connects directly and queries your knowledge base in real-time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Books ===== -->
+  <section class="books" id="books">
+    <div class="container">
+      <div class="section-label">Knowledge Base</div>
+      <h2 class="section-title">10 Books That Built This Mentor</h2>
+      <p class="section-subtitle">
+        Every answer is grounded in proven startup frameworks and strategies.
+      </p>
+      <div class="books-grid">
+        <div class="book-card">
+          <div class="book-emoji">&#128176;</div>
+          <h4>$100M Offers</h4>
+          <p class="book-author">Alex Hormozi</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128227;</div>
+          <h4>$100M Leads</h4>
+          <p class="book-author">Alex Hormozi</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128640;</div>
+          <h4>Zero to One</h4>
+          <p class="book-author">Peter Thiel</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128200;</div>
+          <h4>The Lean Startup</h4>
+          <p class="book-author">Eric Ries</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128214;</div>
+          <h4>The Startup Owner's Manual</h4>
+          <p class="book-author">Steve Blank</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#127919;</div>
+          <h4>Traction</h4>
+          <p class="book-author">Weinberg &amp; Mares</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128269;</div>
+          <h4>Obviously Awesome</h4>
+          <p class="book-author">April Dunford</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#129693;</div>
+          <h4>Hooked</h4>
+          <p class="book-author">Nir Eyal</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128483;</div>
+          <h4>Never Split the Difference</h4>
+          <p class="book-author">Chris Voss</p>
+        </div>
+        <div class="book-card">
+          <div class="book-emoji">&#128172;</div>
+          <h4>The Mom Test</h4>
+          <p class="book-author">Rob Fitzpatrick</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== How It Works ===== -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">Up and Running in 3 Steps</h2>
+      <p class="section-subtitle">
+        Clone the repo, add your books, and start asking Claude for startup advice.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Clone the Repo</h3>
+          <p>Get the project and install dependencies.</p>
+          <code>git clone &amp;&amp; pip install -r requirements.txt</code>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Add Your Books</h3>
+          <p>Drop PDFs or EPUBs into <strong>data/raw/</strong> and run the ingestion script to build the knowledge base.</p>
+          <code>python scripts/ingest_pdf.py --dir data/raw/</code>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Ask Claude</h3>
+          <p>Connect Claude Desktop via MCP and start asking real startup questions.</p>
+          <code>"How do I validate my startup idea?"</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Email Signup ===== -->
+  <section class="signup" id="signup">
+    <div class="container">
+      <div class="section-label">Stay Updated</div>
+      <h2 class="section-title">Get Early Access &amp; Updates</h2>
+      <p class="section-subtitle">
+        Be the first to know about new features, additional books, and hosted version launch.
+      </p>
+      <!--
+        INSTRUCTIONS: Replace YOUR_FORM_ID below with your Formspree form ID.
+        1. Go to https://formspree.io and create a free account
+        2. Create a new form
+        3. Copy your form ID (e.g., "xpzvqrda")
+        4. Replace YOUR_FORM_ID in the action URL below
+      -->
+      <form class="signup-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="email" name="email" placeholder="you@example.com" required>
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="signup-note">No spam, ever. Only meaningful updates about Founder AI Mentor.</p>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/ceoimperiumprojects/founder-ai-mentor" target="_blank" rel="noopener">GitHub</a>
+        <a href="#about">About</a>
+        <a href="#signup">Contact</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p>Built by <a href="https://github.com/ceoimperiumprojects" target="_blank" rel="noopener">Imperium Tech</a> &middot; Pavle Andjelkovic</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+
+</body>
+</html>

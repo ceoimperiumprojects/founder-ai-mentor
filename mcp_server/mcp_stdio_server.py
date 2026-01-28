@@ -15,13 +15,18 @@ from src.vector_store import VectorStore
 # Initialize vector store
 project_root = Path(__file__).parent.parent
 db_path = project_root / "chroma_db"
-vector_store = None
+
+# Warmup: Load model at startup instead of first request
+sys.stderr.write("Loading embedding model...\n")
+sys.stderr.flush()
+vector_store = VectorStore(persist_directory=str(db_path))
+# Do a dummy search to fully warm up the model
+_ = vector_store.search("warmup", k=1)
+sys.stderr.write("Model loaded and ready!\n")
+sys.stderr.flush()
 
 
 def get_vector_store():
-    global vector_store
-    if vector_store is None:
-        vector_store = VectorStore(persist_directory=str(db_path))
     return vector_store
 
 
