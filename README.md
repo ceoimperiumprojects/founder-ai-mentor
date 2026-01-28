@@ -143,4 +143,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ## Author
 
-**Pavle Andjelkovic** — [Imperium Tech](https://github.com/ceoimperiumprojects)
+**Pavle Andjelkovic** — [Imperium Tech](https://github.com/ceoimperiumprojects) · [LinkedIn](https://www.linkedin.com/in/pavle-an%C4%91elkovi%C4%87-1614b1373)
