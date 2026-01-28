@@ -8,9 +8,6 @@ venv/
 env/
 .venv/
 
-# ChromaDB
-chroma_db/
-
 # Temp
 temp/
 *.tmp

@@ -1,8 +1,8 @@
 # Founder AI Mentor
 
-An AI-powered startup mentor that gives you grounded, actionable advice by searching through 10 essential startup books using semantic search and the Model Context Protocol (MCP).
+An AI-powered startup mentor that gives you grounded, actionable advice using semantic search and the Model Context Protocol (MCP).
 
-Ask Claude anything about building a startup — and get answers backed by real frameworks from Hormozi, Thiel, Ries, and more.
+Ask Claude anything about building a startup — and get answers backed by real frameworks and proven strategies.
 
 ## How It Works
 
@@ -10,24 +10,13 @@ Ask Claude anything about building a startup — and get answers backed by real 
 You ask a question → Claude searches the knowledge base → Returns grounded advice with sources
 ```
 
-The system uses **sentence-transformers** to create semantic embeddings of book content, stores them in **ChromaDB**, and exposes the search as an **MCP tool** that Claude Desktop can call directly.
+The system uses **sentence-transformers** to create semantic embeddings, stores them in **ChromaDB**, and exposes the search as an **MCP tool** that Claude Desktop can call directly.
 
-## Books Included
+The knowledge base comes **pre-built** — clone and start asking questions immediately.
 
-| Book | Author |
-|------|--------|
-| $100M Offers | Alex Hormozi |
-| $100M Leads | Alex Hormozi |
-| Zero to One | Peter Thiel |
-| The Lean Startup | Eric Ries |
-| The Startup Owner's Manual | Steve Blank |
-| Traction | Gabriel Weinberg & Justin Mares |
-| Obviously Awesome | April Dunford |
-| Hooked | Nir Eyal |
-| Never Split the Difference | Chris Voss |
-| The Mom Test | Rob Fitzpatrick |
+## Topics Covered
 
-> You supply your own book files (PDF or EPUB). This repo includes the ingestion pipeline and search infrastructure only.
+Offers & pricing, lead generation, going from zero to one, lean methodology, customer development, traction channels, product positioning, habit-forming products, negotiation tactics, and customer interviews.
 
 ## Quick Start
 
@@ -46,19 +35,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Add your books
-
-Place PDF or EPUB files into `data/raw/`, then ingest:
-
-```bash
-# Ingest all PDFs
-python scripts/ingest_pdf.py --dir data/raw/
-
-# Ingest all EPUBs
-python scripts/ingest_epub.py --dir data/raw/
-```
-
-### 3. Connect to Claude Desktop
+### 2. Connect to Claude Desktop
 
 Add this to your Claude Desktop MCP config (`claude_desktop_config.json`):
 
@@ -77,8 +54,18 @@ Add this to your Claude Desktop MCP config (`claude_desktop_config.json`):
 Restart Claude Desktop. You can now ask questions like:
 
 - *"How do I validate my startup idea?"*
-- *"What makes an irresistible offer according to Hormozi?"*
+- *"What makes an irresistible offer?"*
 - *"How should I position my product in a crowded market?"*
+
+### Optional: Add your own content
+
+You can expand the knowledge base by adding your own PDFs or EPUBs:
+
+```bash
+# Add files to data/raw/, then:
+python scripts/ingest_pdf.py --dir data/raw/
+python scripts/ingest_epub.py --dir data/raw/
+```
 
 ## Project Structure
 
@@ -100,8 +87,7 @@ founder-ai-mentor/
 ├── gui/                  # Streamlit GUI
 │   └── app.py
 ├── docs/                 # Landing page (GitHub Pages)
-├── data/raw/             # Your book files go here (gitignored)
-└── chroma_db/            # Vector database (gitignored)
+└── chroma_db/            # Pre-built vector knowledge base
 ```
 
 ## MCP Tools
@@ -110,7 +96,7 @@ The server exposes two tools to Claude:
 
 | Tool | Description |
 |------|-------------|
-| `search_startup_knowledge` | Semantic search across all ingested books |
+| `search_startup_knowledge` | Semantic search across the knowledge base |
 | `get_knowledge_stats` | Returns knowledge base statistics |
 
 ## Alternative: HTTP API
