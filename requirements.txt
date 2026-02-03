@@ -17,5 +17,8 @@ chromadb>=0.4.0
 ebooklib>=0.18
 beautifulsoup4>=4.12.0
 
+# Web scraping
+requests>=2.31.0
+
 # Utilities
 python-dotenv>=1.0.0

@@ -29,3 +29,6 @@ Thumbs.db
 # Data - PDFs and EPUBs (large files, not tracked)
 data/raw/*.pdf
 data/raw/*.epub
+
+# Runtime sidecar metadata (tags/annotations - created locally)
+knowledge_meta.json
