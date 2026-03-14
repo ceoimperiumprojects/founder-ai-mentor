@@ -8,6 +8,11 @@ venv/
 env/
 .venv/
 
+# Build
+*.egg-info/
+dist/
+build/
+
 # Temp
 temp/
 *.tmp
