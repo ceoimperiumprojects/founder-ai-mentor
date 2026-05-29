@@ -1,3 +1,5 @@
+import os
+
 from sentence_transformers import SentenceTransformer
 
 
@@ -5,13 +7,17 @@ class EmbeddingModel:
     _instance = None
     _model = None
 
-    def __new__(cls, model_name: str = "all-MiniLM-L6-v2"):
+    def __new__(cls, model_name: str = "all-MiniLM-L6-v2", device: str | None = None):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._model = SentenceTransformer(model_name)
+            # Default to CPU. Pavle's local 930MX is visible to torch, but modern
+            # PyTorch wheels do not ship kernels for compute capability 5.0, so
+            # sentence-transformers auto-selecting CUDA crashes at encode time.
+            selected_device = device or os.getenv("FOUNDER_KB_DEVICE", "cpu")
+            cls._model = SentenceTransformer(model_name, device=selected_device)
         return cls._instance
 
-    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2", device: str | None = None):
         pass
 
     def embed_text(self, text: str) -> list[float]:

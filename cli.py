@@ -23,11 +23,14 @@ err_console = Console(stderr=True)
 
 # ── Global state ──────────────────────────────────────────────────────────────
 
-_db_path: str = "./chroma_db"
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_DB_PATH = PROJECT_ROOT / "chroma_db"
+
+_db_path: str = str(DEFAULT_DB_PATH)
 _json_output: bool = False
 _vector_store = None
 
-META_FILE: Path = Path("knowledge_meta.json")
+META_FILE: Path = PROJECT_ROOT / "knowledge_meta.json"
 
 
 def _out(data, human_text: str):
@@ -105,7 +108,7 @@ def _fetch_url_text(url: str) -> str:
 
 @app.callback()
 def main(
-    db_path: str = typer.Option("./chroma_db", "--db-path", help="Path to ChromaDB directory."),
+    db_path: str = typer.Option(str(DEFAULT_DB_PATH), "--db-path", help="Path to ChromaDB directory."),
     json_output: bool = typer.Option(False, "--json", help="Output as JSON for machine parsing."),
 ):
     """Founder KB — AI-powered knowledge base for founders."""

@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Tiny ergonomic wrapper around founder-kb for agents and humans.
+
+Examples:
+  ./kb outreach "ReVesta recovery firms" --top-k 8
+  ./kb revesta "cold email to surplus recovery operator" --pretty
+  ./kb q "pricing guarantee for B2B data product" --top-k 5
+  ./kb profiles
+  ./kb edit
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+from src.profile_search import build_queries, load_profiles
+
+ROOT = Path(__file__).resolve().parent
+PROFILE_PATH = ROOT / "kb_profiles.json"
+PYTHON = ROOT / ".venv-hermes" / "bin" / "python"
+if not PYTHON.exists():
+    PYTHON = Path(sys.executable)
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="./kb",
+        description="Short Founder KB search wrapper with editable profiles.",
+    )
+    parser.add_argument(
+        "profile",
+        help="Profile name (outreach, calls, discovery, offer, positioning, gtm, revesta), q/query, profiles, show, or edit.",
+    )
+    parser.add_argument("context", nargs="*", help="Task context or query text.")
+    parser.add_argument("-k", "--top-k", type=int, default=8, help="Number of results to return.")
+    parser.add_argument("--pretty", action="store_true", help="Print compact readable results instead of raw JSON.")
+    parser.add_argument("--db-path", default=str(ROOT / "chroma_db"), help="Chroma DB path.")
+    return parser.parse_args()
+
+
+def _run_founder_kb(queries: list[str], top_k: int, db_path: str) -> str:
+    env = os.environ.copy()
+    env.setdefault("FOUNDER_KB_DEVICE", "cpu")
+    base = [str(PYTHON), "cli.py", "--db-path", db_path, "--json"]
+    if len(queries) == 1:
+        cmd = [*base, "search", queries[0], "--top-k", str(top_k)]
+    else:
+        cmd = [*base, "multi-search", *queries, "--top-k", str(top_k)]
+    proc = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True, check=False)
+    if proc.returncode != 0:
+        sys.stderr.write(proc.stderr)
+        sys.stderr.write(proc.stdout)
+        raise SystemExit(proc.returncode)
+    return proc.stdout
+
+
+def _print_pretty(raw: str) -> None:
+    data = json.loads(raw)
+    if not data:
+        print("No results.")
+        return
+    for i, item in enumerate(data, 1):
+        source = item.get("source", "unknown")
+        relevance = item.get("relevance")
+        text = " ".join(str(item.get("text", "")).split())
+        if len(text) > 700:
+            text = text[:700].rstrip() + "..."
+        rel = f" relevance={relevance}" if relevance is not None else ""
+        print(f"[{i}] {source}{rel}\n{text}\n")
+
+
+def main() -> None:
+    args = _parse_args()
+    profiles = load_profiles(PROFILE_PATH)
+    profile = args.profile.strip()
+    context = " ".join(args.context).strip()
+
+    if profile in {"profiles", "list"}:
+        print(f"Profiles file: {PROFILE_PATH}")
+        for name, queries in profiles.items():
+            print(f"- {name}: {len(queries)} queries")
+        return
+
+    if profile == "show":
+        if not context:
+            raise SystemExit("Usage: ./kb show <profile>")
+        name = context.split()[0]
+        if name not in profiles:
+            raise SystemExit(f"Unknown profile: {name}")
+        print(json.dumps({name: profiles[name]}, indent=2, ensure_ascii=False))
+        return
+
+    if profile == "edit":
+        editor = os.environ.get("EDITOR")
+        if not editor:
+            print(PROFILE_PATH)
+            print("Set EDITOR to open it automatically, e.g. EDITOR=nano ./kb edit")
+            return
+        raise SystemExit(subprocess.call([editor, str(PROFILE_PATH)]))
+
+    try:
+        queries = build_queries(profile, context, profiles)
+    except KeyError:
+        known = ", ".join(sorted(profiles))
+        raise SystemExit(f"Unknown profile: {profile}\nKnown profiles: {known}\nUse './kb q <query>' for custom search.")
+
+    raw = _run_founder_kb(queries, args.top_k, args.db_path)
+    if args.pretty:
+        _print_pretty(raw)
+    else:
+        print(raw, end="")
+
+
+if __name__ == "__main__":
+    main()

@@ -34,12 +34,24 @@ pip install -e .
 ```
 
 The knowledge base comes pre-loaded. Start searching immediately:
-
 ```bash
-founder-kb search "how to validate a startup idea"
-founder-kb sources
-founder-kb stats
+./kb q "how to validate a startup idea" --pretty
+./kb outreach "cold email for B2B data product" --pretty
+./kb revesta "discovery call with surplus recovery firm" --pretty
 ```
+
+`./kb` is the ergonomic wrapper for daily use. It reads editable search profiles from `kb_profiles.json`, defaults to CPU, uses the bundled `chroma_db`, and outputs JSON by default for agents. Add `--pretty` for human-readable snippets.
+
+Useful wrapper commands:
+```bash
+./kb profiles                         # list profiles
+./kb show outreach                    # inspect one profile
+./kb edit                             # print/open kb_profiles.json
+./kb q "custom semantic query" -k 5    # one-off query
+./kb offer "pricing ReVesta" -k 8      # profile + context
+```
+
+By default, the CLI uses the bundled `chroma_db` next to this repo and runs embeddings on CPU. This keeps it working from any current directory and avoids crashes on older local GPUs such as the NVIDIA 930MX. If you intentionally want another device, set `FOUNDER_KB_DEVICE`, for example `FOUNDER_KB_DEVICE=cuda founder-kb search "..."`.
 
 ---
 
